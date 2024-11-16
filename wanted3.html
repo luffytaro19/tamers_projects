@@ -21,36 +21,32 @@
             border: 5px solid #000;
             margin-top: 20px;
         }
-        input, button {
-            margin: 10px;
-            padding: 10px;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Wanted Poster Generator</h1>
-        <input type="text" id="name" placeholder="Enter name" value="Your Name Here"><br>
-        <input type="text" id="reward" placeholder="Enter reward" value="$50,000 REWARD!"><br>
-        <input type="text" id="details" placeholder="Enter details" value="NOTIFY NEAREST LAW ENFORCEMENT AGENCY"><br>
-        <input type="text" id="avatarUrl" placeholder="Enter avatar URL" value="https://via.placeholder.com/200"><br>
-        <button onclick="generatePoster()">Generate Poster</button>
-
-        <br>
+        <h1>Wanted Poster</h1>
         <canvas id="posterCanvas" width="350" height="500"></canvas>
     </div>
 
     <script>
+        // Get the query parameter value
+        function getQueryParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
         // Function to draw the wanted poster on the canvas
         function generatePoster() {
             const canvas = document.getElementById('posterCanvas');
             const ctx = canvas.getContext('2d');
 
-            const name = document.getElementById('name').value;
-            const reward = document.getElementById('reward').value;
-            const details = document.getElementById('details').value;
-            const avatarUrl = document.getElementById('avatarUrl').value;
+            // Fetch query parameters
+            const name = getQueryParam('name') || 'Your Name Here';
+            const reward = getQueryParam('reward') || '$50,000 REWARD!';
+            const details = getQueryParam('details') || 'NOTIFY NEAREST LAW ENFORCEMENT AGENCY';
+            const avatarUrl = getQueryParam('avatar') || 'https://via.placeholder.com/200';
 
             // Clear previous canvas content
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -91,7 +87,7 @@
             img.src = avatarUrl;  // Set the image source
         }
 
-        // Initial poster generation
+        // Initialize the poster when the page loads
         generatePoster();
     </script>
 
