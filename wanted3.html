@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE png>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -61,10 +61,6 @@
         <p id="details">NOTIFY NEAREST LAW ENFORCEMENT AGENCY</p>
     </div>
 
-    <canvas id="canvas" width="600" height="800"></canvas>
-
-    <img id="poster-image" src="" alt="Generated Wanted Poster" style="max-width: 100%; height: auto;">
-
     <script>
         // Get the query parameter value
         function getQueryParam(param) {
@@ -73,10 +69,7 @@
         }
 
         // Load the poster with custom values
-        function loadPoster() {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
-            
+        function loadPoster() {          
             const avatarUrl = getQueryParam('avatar');
             const name = getQueryParam('name');
             const reward = getQueryParam('reward');
@@ -87,9 +80,6 @@
             if (name) document.getElementById('name').textContent = name;
             if (reward) document.getElementById('reward').textContent = `Reward: ${reward}`;
             if (details) document.getElementById('details').textContent = details;
-
-            const posterImage = document.getElementById('poster-image');
-            posterImage.src = canvas.toDataURL('image/png');
         }
 
         // Initialize the poster on load
