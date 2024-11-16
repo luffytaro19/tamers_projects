@@ -20,6 +20,11 @@
         canvas {
             border: 5px solid #000;
             margin-top: 20px;
+            display: none; /* Hide canvas element */
+        }
+        img {
+            border: 5px solid #000;
+            max-width: 100%;
         }
     </style>
 </head>
@@ -43,7 +48,6 @@
             const canvas = document.getElementById('posterCanvas');
             const ctx = canvas.getContext('2d');
 
-            // Fetch query parameters
             const name = getQueryParam('name') || 'Your Name Here';
             const reward = getQueryParam('reward') || '$50,000 REWARD!';
             const details = getQueryParam('details') || 'NOTIFY NEAREST LAW ENFORCEMENT AGENCY';
@@ -85,10 +89,11 @@
                 ctx.font = '16px Arial';
                 ctx.fillText(details, canvas.width / 2, 360);
 
+                // Convert the canvas to an image and display it
                 const imageUrl = canvas.toDataURL('image/png');
                 document.getElementById('posterImage').src = imageUrl;
                 canvas.style.display = 'none'; // Hide the canvas after generating the image
-                document.getElementById('posterImage').style.display = 'block';
+                document.getElementById('posterImage').style.display = 'block'; // Show the image
             };
             img.src = avatarUrl;  // Set the image source
         }
