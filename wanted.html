@@ -55,64 +55,34 @@
 <body>
     <div class="poster">
         <h1>Wanted</h1>
-        <h2 id="name">Loading...</h2>
+        <h2 id="name">Your Name Here</h2>
         <img id="avatar" src="https://via.placeholder.com/200" alt="Avatar">
-        <p class="reward" id="reward">Reward: Loading...</p>
-        <p id="details">Details are loading...</p>
+        <p class="reward" id="reward">Reward: $0</p>
+        <p id="details">Enter your own details in the query parameters!</p>
     </div>
 
     <script>
-        // Simulated database of users
-        const userDatabase = [
-            {
-                name: "John Doe",
-                avatar: "https://cdn.discordapp.com/avatars/123456789012345678/abcdef1234567890.png",
-                reward: "$50,000",
-                details: "Last seen in the wild west. Armed and dangerous!"
-            },
-            {
-                name: "Jane Smith",
-                avatar: "https://cdn.discordapp.com/avatars/987654321098765432/fedcba0987654321.png",
-                reward: "$30,000",
-                details: "Wanted for robbery in multiple towns."
-            },
-            {
-                name: "Billy the Kid",
-                avatar: "https://via.placeholder.com/200",
-                reward: "$75,000",
-                details: "Known outlaw and gunslinger. Approach with caution."
-            }
-        ];
-
         // Get the query parameter value
         function getQueryParam(param) {
             const params = new URLSearchParams(window.location.search);
             return params.get(param);
         }
 
-        // Load the poster dynamically based on avatar URL
+        // Load the poster with custom values
         function loadPoster() {
-            // Get the "avatar" query parameter
             const avatarUrl = getQueryParam('avatar');
+            const name = getQueryParam('name');
+            const reward = getQueryParam('reward');
+            const details = getQueryParam('details');
 
-            // Find the user in the "database" based on the avatar URL
-            const user = userDatabase.find(user => user.avatar === avatarUrl);
-
-            if (user) {
-                document.getElementById('name').textContent = user.name;
-                document.getElementById('avatar').src = user.avatar;
-                document.getElementById('reward').textContent = `Reward: ${user.reward}`;
-                document.getElementById('details').textContent = user.details;
-            } else {
-                // Handle case where user is not found
-                document.getElementById('name').textContent = "Unknown";
-                document.getElementById('avatar').src = "https://via.placeholder.com/200";
-                document.getElementById('reward').textContent = "Reward: $0";
-                document.getElementById('details').textContent = "No details available.";
-            }
+            // Update fields if query parameters are provided
+            if (avatarUrl) document.getElementById('avatar').src = avatarUrl;
+            if (name) document.getElementById('name').textContent = name;
+            if (reward) document.getElementById('reward').textContent = `Reward: ${reward}`;
+            if (details) document.getElementById('details').textContent = details;
         }
 
-        // Load the poster on page load
+        // Initialize the poster on load
         loadPoster();
     </script>
 </body>
