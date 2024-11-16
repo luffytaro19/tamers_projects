@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanted Poster</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+        }
+        .poster {
+            width: 350px;
+            padding: 20px;
+            border: 5px solid #000;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .poster h1 {
+            font-size: 3em;
+            color: darkred;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .poster h2 {
+            font-size: 1.8em;
+            margin: 10px 0;
+            color: #333;
+        }
+        .poster img {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+            border-radius: 50%;
+            border: 5px solid #000;
+            object-fit: cover;
+        }
+        .poster p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .reward {
+            font-size: 1.5em;
+            color: darkgreen;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <h1>Wanted</h1>
+        <h2 id="name">Your Name Here</h2>
+        <img id="avatar" src="https://via.placeholder.com/200" alt="Avatar">
+        <p class="reward" id="reward">$50,000 REWARD!</p>
+        <p id="details">NOTIFY NEAREST LAW ENFORCEMENT AGENCY</p>
+    </div>
+
+    <script>
+        // Get the query parameter value
+        function getQueryParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        // Load the poster with custom values
+        function loadPoster() {
+            const avatarUrl = getQueryParam('avatar');
+            const name = getQueryParam('name');
+            const reward = getQueryParam('reward');
+            const details = getQueryParam('details');
+
+            // Update fields if query parameters are provided
+            if (avatarUrl) document.getElementById('avatar').src = avatarUrl;
+            if (name) document.getElementById('name').textContent = name;
+            if (reward) document.getElementById('reward').textContent = `Reward: ${reward}`;
+            if (details) document.getElementById('details').textContent = details;
+        }
+
+        // Initialize the poster on load
+        loadPoster();
+    </script>
+</body>
+</html>
