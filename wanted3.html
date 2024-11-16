@@ -83,7 +83,8 @@
             if (reward) document.getElementById('reward').textContent = `Reward: ${reward}`;
             if (details) document.getElementById('details').textContent = details;
 
-            
+            const posterImage = document.getElementById('poster-image');
+            posterImage.src = canvas.toDataURL('image/png');
         }
 
         // Initialize the poster on load
