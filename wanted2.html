@@ -22,9 +22,6 @@
             margin: 10px;
             padding: 10px;
         }
-        #download-link {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -46,9 +43,10 @@
 
     <canvas id="canvas" width="600" height="800"></canvas>
 
-    <a id="download-link" href="#" download="wanted-poster.png">
-        <button>Download Poster</button>
-    </a>
+    <div id="poster-container" style="margin-top: 20px;">
+        <h2>Your Generated Poster:</h2>
+        <img id="poster-image" src="" alt="Generated Wanted Poster" style="max-width: 100%; height: auto;">
+    </div>
 
     <script>
         function generatePoster() {
@@ -88,9 +86,9 @@
             ctx.fillText(`Bounty: ${bounty}`, 50, 480);
             ctx.fillText(`Description: ${description}`, 50, 510);
 
-            // Enable the download link with the poster image
-            const downloadLink = document.getElementById('download-link');
-            downloadLink.href = canvas.toDataURL('image/png');
+            // Convert the canvas to an image and display it
+            const posterImage = document.getElementById('poster-image');
+            posterImage.src = canvas.toDataURL('image/png');
         }
 
         // Generate initial poster when the page loads
