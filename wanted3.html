@@ -84,6 +84,11 @@
                 ctx.fillStyle = '#333';
                 ctx.font = '16px Arial';
                 ctx.fillText(details, canvas.width / 2, 360);
+
+                const imageUrl = canvas.toDataURL('image/png');
+                document.getElementById('posterImage').src = imageUrl;
+                canvas.style.display = 'none'; // Hide the canvas after generating the image
+                document.getElementById('posterImage').style.display = 'block';
             };
             img.src = avatarUrl;  // Set the image source
         }
