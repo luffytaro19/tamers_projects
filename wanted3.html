@@ -1,89 +1,108 @@
-<!DOCTYPE png>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanted Poster</title>
+    <title>Wanted Poster Generator</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             background-color: #f4f4f4;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
         }
-        .poster {
-            width: 350px;
-            padding: 20px;
-            border: 5px solid #000;
+        #canvas {
+            border: 10px solid black;
             background-color: #fff;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
         }
-        .poster h1 {
-            font-size: 3em;
-            color: darkred;
-            margin: 0;
-            text-transform: uppercase;
+        input, button {
+            margin: 10px;
+            padding: 10px;
         }
-        .poster h2 {
-            font-size: 1.8em;
-            margin: 10px 0;
-            color: #333;
-        }
-        .poster img {
-            width: 200px;
-            height: 200px;
-            margin: 20px 0;
-            border-radius: 50%;
-            border: 5px solid #000;
-            object-fit: cover;
-        }
-        .poster p {
-            font-size: 1.2em;
-            margin: 10px 0;
-        }
-        .reward {
-            font-size: 1.5em;
-            color: darkgreen;
-            font-weight: bold;
+        #poster-image {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
-    <div class="poster">
-        <h1>Wanted</h1>
-        <h2 id="name">Your Name Here</h2>
-        <img id="avatar" src="https://via.placeholder.com/200" alt="Avatar">
-        <p class="reward" id="reward">$50,000 REWARD!</p>
-        <p id="details">NOTIFY NEAREST LAW ENFORCEMENT AGENCY</p>
+
+    <h1>Wanted Poster Generator</h1>
+
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter name" value="John Doe">
+        <br>
+        <label for="bounty">Bounty:</label>
+        <input type="text" id="bounty" placeholder="Enter bounty" value="$5000">
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" placeholder="Enter description" value="Last seen in the Wild West">
+        <br>
+        <button onclick="generatePoster()">Generate Poster</button>
+    </div>
+
+    <canvas id="canvas" width="600" height="800"></canvas>
+
+    <h2>Your Generated Poster:</h2>
+    <div id="poster-container">
+        <!-- The poster will be displayed here -->
     </div>
 
     <script>
-        // Get the query parameter value
-        function getQueryParam(param) {
-            const params = new URLSearchParams(window.location.search);
-            return params.get(param);
+        function generatePoster() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set up the background
+            ctx.fillStyle = '#f4f4f4';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw border
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+            // Draw "WANTED" text at the top
+            ctx.fillStyle = 'red';
+            ctx.font = '40px Impact';
+            ctx.fillText('WANTED', 200, 50);
+
+            // Draw the photo placeholder (a gray box for now)
+            ctx.fillStyle = '#888';
+            ctx.fillRect(150, 100, 300, 300);
+
+            // Get user input
+            const name = document.getElementById('name').value;
+            const bounty = document.getElementById('bounty').value;
+            const description = document.getElementById('description').value;
+
+            // Add user text to the poster
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Name: ${name}`, 50, 450);
+            ctx.fillText(`Bounty: ${bounty}`, 50, 480);
+            ctx.fillText(`Description: ${description}`, 50, 510);
+
+            // Display the poster in the poster container
+            const posterContainer = document.getElementById('poster-container');
+            posterContainer.innerHTML = "";  // Clear previous poster
+            const posterImage = new Image();
+            posterImage.src = canvas.toDataURL('image/png');
+            posterContainer.appendChild(posterImage);
         }
 
-        // Load the poster with custom values
-        function loadPoster() {          
-            const avatarUrl = getQueryParam('avatar');
-            const name = getQueryParam('name');
-            const reward = getQueryParam('reward');
-            const details = getQueryParam('details');
-
-            // Update fields if query parameters are provided
-            if (avatarUrl) document.getElementById('avatar').src = avatarUrl;
-            if (name) document.getElementById('name').textContent = name;
-            if (reward) document.getElementById('reward').textContent = `Reward: ${reward}`;
-            if (details) document.getElementById('details').textContent = details;
-        }
-
-        // Initialize the poster on load
-        loadPoster();
+        // Generate initial poster when the page loads
+        generatePoster();
     </script>
+
 </body>
 </html>
