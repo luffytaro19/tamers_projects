@@ -72,6 +72,9 @@
 
         // Load the poster with custom values
         function loadPoster() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
             const avatarUrl = getQueryParam('avatar');
             const name = getQueryParam('name');
             const reward = getQueryParam('reward');
