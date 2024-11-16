@@ -1,106 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanted Poster</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        canvas {
-            border: 5px solid #000;
-            margin-top: 20px;
-            display: none; /* Hide canvas element */
-        }
-        img {
-            border: 5px solid #000;
-            max-width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanted Poster</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .wanted-poster {
+      border: 5px solid black;
+      width: 300px;
+      padding: 20px;
+      margin: 20px auto;
+      position: relative;
+    }
+    .wanted-poster img {
+      width: 100%;
+    }
+    .wanted-poster h2 {
+      margin-top: 10px;
+      color: red;
+    }
+    .wanted-poster p {
+      font-size: 18px;
+      margin-top: 5px;
+    }
+    .change-poster {
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
+  <h1>WANTED: Criminals</h1>
+  
+  <!-- Wanted poster section -->
+  <div class="wanted-poster" id="poster">
+    <img src="https://via.placeholder.com/300x400?text=WANTED" alt="Wanted Poster" id="poster-image">
+    <h2 id="poster-title">John Doe</h2>
+    <p id="poster-description">Last seen in the Wild West. Reward: $1000</p>
+  </div>
 
-    <div class="container">
-        <h1>Wanted Poster</h1>
-        <canvas id="posterCanvas" width="350" height="500"></canvas>
-        <img id="posterImage" src="" alt="Wanted Poster Image">
-    </div>
+  <!-- Button to change poster -->
+  <div class="change-poster">
+    <button onclick="changePoster()">Change Poster</button>
+  </div>
 
-    <script>
-        // Get the query parameter value
-        function getQueryParam(param) {
-            const params = new URLSearchParams(window.location.search);
-            return params.get(param);
-        }
+  <script>
+     function changePoster() {
+         // Change image source
+         const newImage = "https://via.placeholder.com/300x400?text=WANTED+2"; // Change to another image URL
+         const newTitle = "Jane Doe";  // Change title
+         const newDescription = "Last seen robbing a bank. Reward: $2000";  // Change description
 
-        // Function to draw the wanted poster on the canvas
-        function generatePoster() {
-            const canvas = document.getElementById('posterCanvas');
-            const ctx = canvas.getContext('2d');
-
-            const name = getQueryParam('name') || 'Your Name Here';
-            const reward = getQueryParam('reward') || '$50,000 REWARD!';
-            const details = getQueryParam('details') || 'NOTIFY NEAREST LAW ENFORCEMENT AGENCY';
-            const avatarUrl = getQueryParam('avatar') || 'https://via.placeholder.com/200';
-
-            // Clear previous canvas content
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw the poster border
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(0, 0, canvas.width, canvas.height);
-
-            // Draw the title
-            ctx.fillStyle = 'darkred';
-            ctx.font = '36px "Courier New", Courier, monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText("WANTED", canvas.width / 2, 40);
-
-            // Draw the avatar image
-            const img = new Image();
-            img.onload = function() {
-                ctx.drawImage(img, canvas.width / 2 - 100, 60, 200, 200);  // Draw the image at the top
-
-                // Draw the name
-                ctx.fillStyle = '#333';
-                ctx.font = '24px Arial';
-                ctx.fillText(name, canvas.width / 2, 280);
-
-                // Draw the reward
-                ctx.fillStyle = 'darkgreen';
-                ctx.font = '20px Arial';
-                ctx.fillText(reward, canvas.width / 2, 320);
-
-                // Draw the details
-                ctx.fillStyle = '#333';
-                ctx.font = '16px Arial';
-                ctx.fillText(details, canvas.width / 2, 360);
-
-                // Convert the canvas to an image and display it
-                const imageUrl = canvas.toDataURL('image/png');
-                document.getElementById('posterImage').src = imageUrl;
-                canvas.style.display = 'none'; // Hide the canvas after generating the image
-                document.getElementById('posterImage').style.display = 'block'; // Show the image
-            };
-            img.src = avatarUrl;  // Set the image source
-        }
-
-        // Initialize the poster when the page loads
-        generatePoster();
-    </script>
-
+         // Update the poster
+         document.getElementById('poster-image').src = newImage;
+         document.getElementById('poster-title').innerText = newTitle;
+         document.getElementById('poster-description').innerText = newDescription;
+     }
+ </script>
 </body>
 </html>
