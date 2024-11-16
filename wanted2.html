@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanted Poster Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #canvas {
+            border: 10px solid black;
+            background-color: #fff;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        #download-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Wanted Poster Generator</h1>
+
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter name" value="John Doe">
+        <br>
+        <label for="bounty">Bounty:</label>
+        <input type="text" id="bounty" placeholder="Enter bounty" value="$5000">
+        <br>
+        <label for="description">Description:</label>
+        <input type="text" id="description" placeholder="Enter description" value="Last seen in the Wild West">
+        <br>
+        <button onclick="generatePoster()">Generate Poster</button>
+    </div>
+
+    <canvas id="canvas" width="600" height="800"></canvas>
+
+    <a id="download-link" href="#" download="wanted-poster.png">
+        <button>Download Poster</button>
+    </a>
+
+    <script>
+        function generatePoster() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set up the background
+            ctx.fillStyle = '#f4f4f4';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw border
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 10;
+            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+            // Draw "WANTED" text at the top
+            ctx.fillStyle = 'red';
+            ctx.font = '40px Impact';
+            ctx.fillText('WANTED', 200, 50);
+
+            // Draw the photo placeholder (a gray box for now)
+            ctx.fillStyle = '#888';
+            ctx.fillRect(150, 100, 300, 300);
+
+            // Get user input
+            const name = document.getElementById('name').value;
+            const bounty = document.getElementById('bounty').value;
+            const description = document.getElementById('description').value;
+
+            // Add user text to the poster
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Name: ${name}`, 50, 450);
+            ctx.fillText(`Bounty: ${bounty}`, 50, 480);
+            ctx.fillText(`Description: ${description}`, 50, 510);
+
+            // Enable the download link with the poster image
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.href = canvas.toDataURL('image/png');
+        }
+
+        // Generate initial poster when the page loads
+        generatePoster();
+    </script>
+
+</body>
+</html>
